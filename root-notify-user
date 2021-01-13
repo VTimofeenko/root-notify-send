@@ -1,0 +1,12 @@
+#!/bin/sh
+# This script allows calling notify-send as root for it to appear on vt's desktop
+
+USERNAME="$1"
+shift
+
+UID=$(id -u "${USERNAME}")
+WM_PID=$(pgrep --exact --uid "${UID}" "i3")
+ENV_FILE="/proc/${WM_PID}/environ"
+DBUS_SESSION_BUS_ADDRESS=$(grep -z DBUS_SESSION_BUS_ADDRESS "${ENV_FILE}"|cut -d= -f2- | tr -d '\0')
+DISPLAY=$(grep -z DISPLAY "${ENV_FILE}"|cut -d= -f2- | tr -d '\0')
+sudo -u "${USERNAME}" DISPLAY="${DISPLAY}" DBUS_SESSION_BUS_ADDRESS="${DBUS_SESSION_BUS_ADDRESS}" notify-send "$@"
