@@ -13,3 +13,5 @@ Second script (`root-notify-user`) sends the message to a single user. The usern
 ```
 
 # Installation
+
+`x11-misc/root-notify-send` Ebuild available in [nitratesky overlay](https://github.com/VTimofeenko/nitratesky). The ebuild includes the option to replace notify-send with [dunstify](https://github.com/dunst-project/dunst).
