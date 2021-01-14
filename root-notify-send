@@ -12,7 +12,7 @@ if [ ${#KNOWN_WMS[@]} -eq 0 ]; then
 fi
 
 for WM in "${KNOWN_WMS[@]}"; do
-    WM_PID=$(pgrep --exact "${WM}")
+    WM_PID=$(pgrep --exact "${WM}") || continue
     ENV_FILE="/proc/${WM_PID}/environ"
     DBUS_SESSION_BUS_ADDRESS=$(grep -z DBUS_SESSION_BUS_ADDRESS "${ENV_FILE}"|cut -d= -f2- | tr -d '\0')
     DISPLAY=$(grep -z DISPLAY "${ENV_FILE}"|cut -d= -f2- | tr -d '\0')
